@@ -33,26 +33,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "alphabet"
-version = "0.2.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "102911a58a1bd75870ae3ee63897b2a448f73d22f5f9380950e2c40aef768315"
-dependencies = [
- "alphabet-macro",
- "more-asserts",
-]
-
-[[package]]
-name = "alphabet-macro"
-version = "0.1.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "68bbf44d93394f53a71f1fdbc123ea1eee06d982de2b5a88ddc759da5b0f1e18"
-dependencies = [
- "quote",
- "syn 1.0.109",
-]
-
-[[package]]
 name = "android_system_properties"
 version = "0.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1972,12 +1952,6 @@ dependencies = [
  "wasi 0.11.1+wasi-snapshot-preview1",
  "windows-sys 0.61.2",
 ]
-
-[[package]]
-name = "more-asserts"
-version = "0.2.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7843ec2de400bcbc6a6328c958dc38e5359da6e93e72e37bc5246bf1ae776389"
 
 [[package]]
 name = "muda"
@@ -4099,7 +4073,6 @@ checksum = "e421abadd41a4225275504ea4d6566923418b7f05506fbc9c0fe86ba7396114b"
 name = "turron"
 version = "0.1.0"
 dependencies = [
- "alphabet",
  "rand 0.9.2",
  "serde",
  "serde_json",

@@ -1,5 +1,7 @@
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 use rand::Rng;
+mod romaji;
+mod names;
 
 #[tauri::command]
 fn greet(name: &str) -> String {
@@ -12,12 +14,8 @@ fn generate_username(length: usize) -> String {
     let mut username = String::with_capacity(length);
 
     static ASCII_LOWER: [char; 26] = [
-        'a', 'b', 'c', 'd', 'e', 
-        'f', 'g', 'h', 'i', 'j', 
-        'k', 'l', 'm', 'n', 'o',
-        'p', 'q', 'r', 's', 't', 
-        'u', 'v', 'w', 'x', 'y', 
-        'z',
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+        's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
     ];
 
     for _ in 0..length {
@@ -33,21 +31,32 @@ fn generate_romaji_username(length: usize) -> String {
     let mut rng = rand::rng();
     let mut username = String::with_capacity(length);
 
-    static ROMAJI_ASCII_LOWER: [&str; 45] = [
-        "a", "i", "u", "e", "o",
-        "ka", "ki", "ku", "ke", "ko",
-        "sa", "shi", "su", "se", "so",
-        "ta", "chi", "tsu", "te", "to",
-        "na", "ni", "nu", "ne", "no",
-        "ha", "hi", "fu", "he", "ho",
-        "ma", "mi", "mu", "me", "mo",
-        "ya", "yu", "yo",
-        "ra", "ri", "ru", "re", "ro",
-        "wa", "wo",
+    let alphabets: [&[&str]; 2] = [
+        &romaji::ROMAJI_ASCII_LOWER,
+        &romaji::ROMAJI_YOON_ASCII_LOWER
     ];
 
     for _ in 0..length {
-        let c = ROMAJI_ASCII_LOWER[rng.random_range(0..ROMAJI_ASCII_LOWER.len())];
+        let alphabet = alphabets[rng.random_range(0..alphabets.len())];
+        let c = alphabet[rng.random_range(0..alphabet.len())];
+        username.push_str(c);
+    }
+
+    username
+}
+
+#[tauri::command]
+fn generate_random_names(length: usize) -> String {
+    let mut rng = rand::rng();
+    let mut username = String::with_capacity(length);
+
+    let alphabets: [&[&str]; 1] = [
+        &names::ENGLISH_MASCULINE_GIVEN_NAMES,
+    ];
+
+    for _ in 0..length {
+        let alphabet = alphabets[rng.random_range(0..alphabets.len())];
+        let c = alphabet[rng.random_range(0..alphabet.len())];
         username.push_str(c);
     }
 
@@ -58,9 +67,12 @@ fn generate_romaji_username(length: usize) -> String {
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![greet])
-        .invoke_handler(tauri::generate_handler![generate_username])
-        .invoke_handler(tauri::generate_handler![generate_romaji_username])
+        .invoke_handler(tauri::generate_handler![
+            greet,
+            generate_username,
+            generate_romaji_username,
+            generate_random_names
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

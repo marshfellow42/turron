@@ -10,16 +10,19 @@
 
     <body>
         <main class="container">
-            <h1>Welcome to Tauri</h1>
-
-            <p>Click on the Tauri logo to learn more about the framework</p>
+            <h1>Turron</h1>
 
             <form class="row" id="username-form">
-                <input id="username-input" placeholder="Enter a number..." type="number" min="1" />
+                <input id="username-input" placeholder="Enter a number for the letters..." type="number" min="1" />
+                <input id="username-words-input" placeholder="Enter a number for the words..." type="number" min="1" />
                 <button type="submit">Submit</button>
                 <label>
                     <input type="checkbox" id="username-romaji-check">
                     Romaji Check
+                </label>
+                <label>
+                    <input type="checkbox" id="username-names-check">
+                    Names Check
                 </label>
             </form>
             <p id="username-msg"></p>
