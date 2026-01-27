@@ -22,7 +22,7 @@ async function generate_username() {
         return;
     }
 
-    usernameMsgEl.textContent = "";
+    usernameMsgEl.textContent = "\u00A0";
 
     for (let i = 0; i < word_count; i++) {
         try {

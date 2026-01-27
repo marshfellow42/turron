@@ -3,6 +3,8 @@ use rand::Rng;
 mod romaji;
 mod names;
 
+//use tauri::menu::MenuBuilder;
+
 #[tauri::command]
 fn greet(name: &str) -> String {
     format!("Hello, {}! You've been greeted from Rust!", name)
@@ -67,6 +69,29 @@ fn generate_random_names(length: usize) -> String {
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
+        /*
+        .setup(|app| {
+            let menu = MenuBuilder::new(app)
+                .text("open", "Open")
+                .text("close", "Close")
+                .check("check_item", "Check Item")
+                .separator()
+                .text("disabled_item", "Disabled Item")
+                .text("status", "Status: Processing...")
+                .build()?;
+
+            app.set_menu(menu.clone())?;
+
+            // Update individual menu item text
+            menu
+                .get("status")
+                .unwrap()
+                .as_menuitem_unchecked()
+                .set_text("Status: Ready")?;
+
+            Ok(())
+        }) 
+        */
         .invoke_handler(tauri::generate_handler![
             greet,
             generate_username,
